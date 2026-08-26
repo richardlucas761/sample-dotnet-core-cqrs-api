@@ -1,5 +1,8 @@
-Sample .NET Core REST API CQRS implementation with raw SQL and DDD using Clean Architecture.
-==============================================================
+# Sample .NET Core REST API CQRS implementation with raw SQL and DDD using Clean Architecture.
+
+## .NET 10 and NuGet package issues
+
+TODO fix remaining issues caused by updating.
 
 ## CI
 
@@ -60,12 +63,16 @@ Outbox Pattern implementation using [Quartz.NET](https://github.com/quartznet/qu
 [The Outbox Pattern](http://www.kamilgrzybek.com/design/the-outbox-pattern/)
 
 ## How to run application
+
 1. Create empty database.
 2. Execute InitializeDatabase.sql script.
 2. Set connection string (in appsettings.json or by user secrets mechanism).
 3. Run!
 
 ## How to run Integration Tests
+
+TODO Integration Tests project currently removed from the solution, will be added back later if this adds value.
+
 1. Create empty database.
 2. Execute InitializeDatabase.sql script.
 3. Set connection string using environment variable named `ASPNETCORE_SampleProject_IntegrationTests_ConnectionString`

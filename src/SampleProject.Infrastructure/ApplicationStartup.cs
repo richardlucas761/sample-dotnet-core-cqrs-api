@@ -1,5 +1,4 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Autofac.Extras.CommonServiceLocator;
 using CommonServiceLocator;
@@ -21,10 +20,11 @@ using SampleProject.Infrastructure.Processing.Outbox;
 using SampleProject.Infrastructure.Quartz;
 using SampleProject.Infrastructure.SeedWork;
 using Serilog;
+using System;
 
 namespace SampleProject.Infrastructure
 {
-    public class ApplicationStartup
+    public static class ApplicationStartup
     {
         public static IServiceProvider Initialize(
             IServiceCollection services,
@@ -44,9 +44,9 @@ namespace SampleProject.Infrastructure
             services.AddSingleton(cacheStore);
 
             var serviceProvider = CreateAutofacServiceProvider(
-                services, 
-                connectionString, 
-                emailSender, 
+                services,
+                connectionString,
+                emailSender,
                 emailsSettings,
                 logger,
                 executionContextAccessor);
@@ -54,7 +54,7 @@ namespace SampleProject.Infrastructure
             return serviceProvider;
         }
 
-        private static IServiceProvider CreateAutofacServiceProvider(
+        private static AutofacServiceProvider CreateAutofacServiceProvider(
             IServiceCollection services,
             string connectionString,
             IEmailSender emailSender,
@@ -70,7 +70,7 @@ namespace SampleProject.Infrastructure
             container.RegisterModule(new DataAccessModule(connectionString));
             container.RegisterModule(new MediatorModule());
             container.RegisterModule(new DomainModule());
-            
+
             if (emailSender != null)
             {
                 container.RegisterModule(new EmailModule(emailSender, emailsSettings));
@@ -79,7 +79,7 @@ namespace SampleProject.Infrastructure
             {
                 container.RegisterModule(new EmailModule(emailsSettings));
             }
-            
+
             container.RegisterModule(new ProcessingModule());
 
             container.RegisterInstance(executionContextAccessor);
@@ -96,7 +96,7 @@ namespace SampleProject.Infrastructure
         }
 
         private static void StartQuartz(
-            string connectionString, 
+            string connectionString,
             EmailsSettings emailsSettings,
             ILogger logger,
             IExecutionContextAccessor executionContextAccessor)

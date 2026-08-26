@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Hellang.Middleware.ProblemDetails;
+﻿using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,19 +8,21 @@ using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SampleProject.API.Configuration;
-using SampleProject.Application.Configuration.Validation;
 using SampleProject.API.SeedWork;
 using SampleProject.Application.Configuration;
 using SampleProject.Application.Configuration.Emails;
+using SampleProject.Application.Configuration.Validation;
 using SampleProject.Domain.SeedWork;
 using SampleProject.Infrastructure;
 using SampleProject.Infrastructure.Caching;
 using Serilog;
 using Serilog.Formatting.Compact;
+using System;
+using System.Linq;
 
 [assembly: UserSecretsId("54e8eb06-aaa1-4fff-9f05-3ced1cb623c2")]
 namespace SampleProject.API
-{  
+{
     public class Startup
     {
         private readonly IConfiguration _configuration;
@@ -47,7 +47,7 @@ namespace SampleProject.API
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
+
             services.AddMemoryCache();
 
             services.AddSwaggerDocumentation();
@@ -57,7 +57,7 @@ namespace SampleProject.API
                 x.Map<InvalidCommandException>(ex => new InvalidCommandProblemDetails(ex));
                 x.Map<BusinessRuleValidationException>(ex => new BusinessRuleValidationExceptionProblemDetails(ex));
             });
-            
+
 
             services.AddHttpContextAccessor();
             var serviceProvider = services.BuildServiceProvider();
@@ -69,7 +69,7 @@ namespace SampleProject.API
             var emailsSettings = _configuration.GetSection("EmailsSettings").Get<EmailsSettings>();
             var memoryCache = serviceProvider.GetService<IMemoryCache>();
             return ApplicationStartup.Initialize(
-                services, 
+                services,
                 this._configuration[OrdersConnectionString],
                 new MemoryCacheStore(memoryCache, cachingConfiguration),
                 null,
@@ -78,7 +78,7 @@ namespace SampleProject.API
                 executionContextAccessor);
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseMiddleware<CorrelationMiddleware>();
 
@@ -98,7 +98,7 @@ namespace SampleProject.API
             app.UseSwaggerDocumentation();
         }
 
-        private static ILogger ConfigureLogger()
+        private static Serilog.Core.Logger ConfigureLogger()
         {
             return new LoggerConfiguration()
                 .Enrich.FromLogContext()

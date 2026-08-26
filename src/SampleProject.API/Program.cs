@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace SampleProject.API
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
