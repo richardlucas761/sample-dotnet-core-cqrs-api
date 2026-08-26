@@ -1,7 +1,3 @@
-using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
@@ -9,6 +5,10 @@ using NUnit.Framework;
 using SampleProject.Application.Configuration.Emails;
 using SampleProject.Infrastructure;
 using Serilog.Core;
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace SampleProject.IntegrationTests.SeedWork
 {
@@ -38,7 +38,7 @@ namespace SampleProject.IntegrationTests.SeedWork
 
             await ClearDatabase(sqlConnection);
 
-            EmailsSettings = new EmailsSettings {FromAddressEmail = "from@mail.com"};
+            EmailsSettings = new EmailsSettings { FromAddressEmail = "from@mail.com" };
 
             EmailSender = Substitute.For<IEmailSender>();
 
@@ -46,13 +46,13 @@ namespace SampleProject.IntegrationTests.SeedWork
 
             ApplicationStartup.Initialize(
                 new ServiceCollection(),
-                ConnectionString, 
+                ConnectionString,
                 new CacheStore(),
                 EmailSender,
                 EmailsSettings,
                 Logger.None,
                 ExecutionContext,
-                runQuartz:false);
+                runQuartz: false);
         }
 
         private static async Task ClearDatabase(IDbConnection connection)

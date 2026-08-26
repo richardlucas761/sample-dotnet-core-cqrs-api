@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using SampleProject.Application;
 using SampleProject.Application.Configuration.Data;
 
 namespace SampleProject.Infrastructure.Database
