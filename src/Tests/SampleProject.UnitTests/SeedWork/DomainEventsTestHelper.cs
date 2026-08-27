@@ -6,7 +6,7 @@ using SampleProject.Domain.SeedWork;
 
 namespace SampleProject.UnitTests.SeedWork
 {
-    public class DomainEventsTestHelper
+    public static class DomainEventsTestHelper
     {
         public static List<IDomainEvent> GetAllDomainEvents(Entity aggregate)
         {

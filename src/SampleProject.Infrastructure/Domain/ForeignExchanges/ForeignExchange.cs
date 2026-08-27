@@ -25,7 +25,7 @@ namespace SampleProject.Infrastructure.Domain.ForeignExchanges
 
             List<ConversionRate> rates = GetConversionRatesFromExternalApi();
 
-            this._cacheStore.Add(new ConversionRatesCache(rates), new ConversionRatesCacheKey(), DateTime.Now.Date.AddDays(1));
+            _cacheStore.Add(new ConversionRatesCache(rates), new ConversionRatesCacheKey(), DateTime.Now.Date.AddDays(1));
 
             return rates;
         }
@@ -34,10 +34,13 @@ namespace SampleProject.Infrastructure.Domain.ForeignExchanges
         {
             // Communication with external API. Here is only mock.
 
-            var conversionRates = new List<ConversionRate>();
+            // TODO something more central or shared for conversion rates?
 
-            conversionRates.Add(new ConversionRate("USD", "EUR", (decimal)0.88));
-            conversionRates.Add(new ConversionRate("EUR", "USD", (decimal)1.13));
+            var conversionRates = new List<ConversionRate>
+            {
+                new ConversionRate("USD", "EUR", (decimal)0.88),
+                new ConversionRate("EUR", "USD", (decimal)1.13)
+            };
 
             return conversionRates;
         }

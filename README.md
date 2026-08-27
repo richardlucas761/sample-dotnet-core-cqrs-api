@@ -1,5 +1,9 @@
 # Sample .NET Core REST API CQRS implementation with raw SQL and DDD using Clean Architecture.
 
+## Tests are setting the system clock?
+
+Check and rework because that seems like a really bad idea.
+
 ## .NET 10 and NuGet package issues
 
 TODO fix remaining issues caused by updating.

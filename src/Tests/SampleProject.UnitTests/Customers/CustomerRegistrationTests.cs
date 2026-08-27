@@ -6,19 +6,22 @@ using SampleProject.UnitTests.SeedWork;
 
 namespace SampleProject.UnitTests.Customers
 {
+
     [TestFixture]
     public class CustomerRegistrationTests : TestBase
     {
+        private const string email = "testEmail@email.com";
+        private const string Name1 = "Sample name";
+
         [Test]
         public void GivenCustomerEmailIsUnique_WhenCustomerIsRegistering_IsSuccessful()
         {
             // Arrange
             var customerUniquenessChecker = Substitute.For<ICustomerUniquenessChecker>();
-            const string email = "testEmail@email.com";
             customerUniquenessChecker.IsUnique(email).Returns(true);
 
             // Act
-            var customer = Customer.CreateRegistered(email, "Sample name", customerUniquenessChecker);
+            var customer = Customer.CreateRegistered(email, Name1, customerUniquenessChecker);
 
             // Assert
             AssertPublishedDomainEvent<CustomerRegisteredEvent>(customer);
@@ -29,14 +32,13 @@ namespace SampleProject.UnitTests.Customers
         {
             // Arrange
             var customerUniquenessChecker = Substitute.For<ICustomerUniquenessChecker>();
-            const string email = "testEmail@email.com";
             customerUniquenessChecker.IsUnique(email).Returns(false);
 
             // Assert
             AssertBrokenRule<CustomerEmailMustBeUniqueRule>(() =>
             {
                 // Act
-                Customer.CreateRegistered(email, "Sample name", customerUniquenessChecker);
+                Customer.CreateRegistered(email, Name1, customerUniquenessChecker);
             });
         }
     }

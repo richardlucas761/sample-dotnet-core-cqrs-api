@@ -13,19 +13,14 @@ namespace SampleProject.UnitTests.SeedWork
         {
             var domainEvent = DomainEventsTestHelper.GetAllDomainEvents(aggregate).OfType<T>().SingleOrDefault();
 
-            if (domainEvent == null)
-            {
-                throw new Exception($"{typeof(T).Name} event not published");
-            }
-
-            return domainEvent;
+            return domainEvent.Equals(null) ? throw new Exception($"{typeof(T).Name} event not published") : domainEvent;
         }
 
         public static List<T> AssertPublishedDomainEvents<T>(Entity aggregate) where T : IDomainEvent
         {
             var domainEvents = DomainEventsTestHelper.GetAllDomainEvents(aggregate).OfType<T>().ToList();
 
-            if (!domainEvents.Any())
+            if (domainEvents.Count == 0)
             {
                 throw new Exception($"{typeof(T).Name} event not published");
             }

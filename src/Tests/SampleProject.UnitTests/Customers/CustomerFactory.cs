@@ -3,7 +3,7 @@ using SampleProject.Domain.Customers;
 
 namespace SampleProject.UnitTests.Customers
 {
-    public class CustomerFactory
+    public static class CustomerFactory
     {
         public static Customer Create()
         {
