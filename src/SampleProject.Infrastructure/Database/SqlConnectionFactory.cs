@@ -17,7 +17,7 @@ namespace SampleProject.Infrastructure.Database
 
         public IDbConnection GetOpenConnection()
         {
-            if (this._connection == null || this._connection.State != ConnectionState.Open)
+            if (_connection == null || this._connection.State != ConnectionState.Open)
             {
                 this._connection = new SqlConnection(_connectionString);
                 this._connection.Open();

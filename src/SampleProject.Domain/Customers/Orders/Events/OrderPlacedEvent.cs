@@ -1,5 +1,4 @@
-﻿using System;
-using SampleProject.Domain.SeedWork;
+﻿using SampleProject.Domain.SeedWork;
 using SampleProject.Domain.SharedKernel;
 
 namespace SampleProject.Domain.Customers.Orders.Events
@@ -17,8 +16,8 @@ namespace SampleProject.Domain.Customers.Orders.Events
             CustomerId customerId, 
             MoneyValue value)
         {
-            this.OrderId = orderId;
-            this.CustomerId = customerId;
+            OrderId = orderId;
+            CustomerId = customerId;
             Value = value;
         }
     }

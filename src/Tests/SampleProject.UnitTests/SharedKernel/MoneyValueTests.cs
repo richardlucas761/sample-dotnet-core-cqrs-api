@@ -11,10 +11,10 @@ namespace SampleProject.UnitTests.SharedKernel
         [Test]
         public void MoneyValueOf_WhenCurrencyIsProvided_IsSuccessful()
         {
-            var value = MoneyValue.Of(120, "EUR");
+            var value = MoneyValue.Of(120, Constants.currencyEuro);
 
             Assert.That(value.Value, Is.EqualTo(120));
-            Assert.That(value.Currency, Is.EqualTo("EUR"));
+            Assert.That(value.Currency, Is.EqualTo(Constants.currencyEuro));
         }
 
         [Test]
@@ -29,20 +29,20 @@ namespace SampleProject.UnitTests.SharedKernel
         [Test]
         public void GivenTwoMoneyValuesWithTheSameCurrencies_WhenAddThem_IsSuccessful()
         {
-            var valueInEuros = MoneyValue.Of(100, "EUR");
-            var valueInEuros2 = MoneyValue.Of(50, "EUR");
+            var valueInEuros = MoneyValue.Of(100, Constants.currencyEuro);
+            var valueInEuros2 = MoneyValue.Of(50, Constants.currencyEuro);
 
             MoneyValue add = valueInEuros + valueInEuros2;
 
             Assert.That(add.Value, Is.EqualTo(150));
-            Assert.That(add.Currency, Is.EqualTo("EUR"));
+            Assert.That(add.Currency, Is.EqualTo(Constants.currencyEuro));
         }
 
         [Test]
         public void GivenTwoMoneyValuesWithTheSameCurrencies_SumThem_IsSuccessful()
         {
-            var valueInEuros = MoneyValue.Of(100, "EUR");
-            var valueInEuros2 = MoneyValue.Of(50, "EUR");
+            var valueInEuros = MoneyValue.Of(100, Constants.currencyEuro);
+            var valueInEuros2 = MoneyValue.Of(50, Constants.currencyEuro);
 
             IList<MoneyValue> values = new List<MoneyValue>
             {
@@ -52,14 +52,14 @@ namespace SampleProject.UnitTests.SharedKernel
             MoneyValue add = values.Sum();
 
             Assert.That(add.Value, Is.EqualTo(150));
-            Assert.That(add.Currency, Is.EqualTo("EUR"));
+            Assert.That(add.Currency, Is.EqualTo(Constants.currencyEuro));
         }
 
         [Test]
         public void GivenTwoMoneyValuesWithDifferentCurrencies_WhenAddThem_ThrowsMoneyValueOperationMustBePerformedOnTheSameCurrencyRule()
         {
-            var valueInEuros = MoneyValue.Of(100, "EUR");
-            var valueInDollars = MoneyValue.Of(50, "USD");
+            var valueInEuros = MoneyValue.Of(100, Constants.currencyEuro);
+            var valueInDollars = MoneyValue.Of(50, Constants.currencyUsDollar);
             AssertBrokenRule<MoneyValueOperationMustBePerformedOnTheSameCurrencyRule>(() =>
             {
                 var add = valueInEuros + valueInDollars;

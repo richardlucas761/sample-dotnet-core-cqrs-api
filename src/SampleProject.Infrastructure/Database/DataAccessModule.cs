@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SampleProject.Application;
 using SampleProject.Application.Configuration.Data;
 using SampleProject.Domain.Customers.Orders;
 using SampleProject.Domain.Payments;
@@ -15,7 +14,7 @@ using SampleProject.Infrastructure.SeedWork;
 
 namespace SampleProject.Infrastructure.Database
 {
-    public class DataAccessModule : Autofac.Module
+    public class DataAccessModule : Module
     {
         private readonly string _databaseConnectionString;
 
@@ -34,7 +33,6 @@ namespace SampleProject.Infrastructure.Database
             builder.RegisterType<UnitOfWork>()
                 .As<IUnitOfWork>()
                 .InstancePerLifetimeScope();
-
 
             builder.RegisterType<CustomerRepository>()
                 .As<ICustomerRepository>()

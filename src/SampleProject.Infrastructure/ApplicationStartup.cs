@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Autofac.Extras.CommonServiceLocator;
 using CommonServiceLocator;
@@ -20,7 +21,6 @@ using SampleProject.Infrastructure.Processing.Outbox;
 using SampleProject.Infrastructure.Quartz;
 using SampleProject.Infrastructure.SeedWork;
 using Serilog;
-using System;
 
 namespace SampleProject.Infrastructure
 {
