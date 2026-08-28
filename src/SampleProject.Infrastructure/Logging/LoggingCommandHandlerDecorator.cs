@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using SampleProject.Application;
 using SampleProject.Application.Configuration;
 using SampleProject.Application.Configuration.Commands;
 using SampleProject.Infrastructure.Processing.Outbox;
@@ -60,6 +59,11 @@ namespace SampleProject.Infrastructure.Logging
                     throw;
                 }
             }
+        }
+
+        Task IRequestHandler<T>.Handle(T request, CancellationToken cancellationToken)
+        {
+            return Handle(request, cancellationToken);
         }
 
         private class CommandLogEnricher : ILogEventEnricher
