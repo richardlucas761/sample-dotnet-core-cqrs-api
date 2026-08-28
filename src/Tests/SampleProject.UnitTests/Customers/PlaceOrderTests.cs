@@ -89,8 +89,6 @@ namespace SampleProject.UnitTests.Customers
 
             var conversionRates = GetConversionRates();
 
-            // TODO is this setting the actual system clock? Seems like a really bad idea.
-
             SystemClock.Set(new DateTime(2020, 1, 10, 11, 0, 0));
             customer.PlaceOrder(
                 orderProductsData,
